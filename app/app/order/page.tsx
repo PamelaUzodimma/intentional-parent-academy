@@ -90,10 +90,11 @@ export default function OrderPage() {
 
       if (receiptFile) {
         const supabase = createClient();
-        const path = `${orderNumber}/${receiptFile.name}`;
+                const safeName = receiptFile.name.replace(/[^a-zA-Z0-9.\-_]/g, "_");
+        const path = `${orderNumber}/${Date.now()}-${safeName}`;
         const { error: uploadErr } = await supabase.storage
           .from("payment-receipts")
-          .upload(path, receiptFile, { upsert: true });
+          .upload(path, receiptFile, { upsert: false });
         if (uploadErr) throw new Error("Could not upload receipt. You can still confirm without it.");
         proof_url = path;
       }

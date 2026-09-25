@@ -46,10 +46,11 @@ export default function OrderStatusPage() {
       let proof_url: string | undefined;
       if (receiptFile) {
         const supabase = createClient();
-        const path = `${order.order_number}/${receiptFile.name}`;
+                const safeName = receiptFile.name.replace(/[^a-zA-Z0-9.\-_]/g, "_");
+        const path = `${order.order_number}/${Date.now()}-${safeName}`;
         const { error: uploadErr } = await supabase.storage
           .from("payment-receipts")
-          .upload(path, receiptFile, { upsert: true });
+          .upload(path, receiptFile, { upsert: false });
         if (uploadErr) throw new Error("Could not upload receipt. Please try again.");
         proof_url = path;
       }
