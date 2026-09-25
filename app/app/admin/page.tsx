@@ -46,7 +46,7 @@ function Card({
   return (
     <div className="rounded-xl border border-gray-100 p-5">
       <p className="text-xs font-semibold uppercase tracking-wide text-gray-400">{label}</p>
-      <p className={`mt-1 text-2xl font-bold ${toneClass}`}>{value}</p>
+      <p className={`mt-2 text-2xl font-bold leading-tight ${toneClass}`}>{value}</p>
     </div>
   );
 }
@@ -75,7 +75,7 @@ export default async function AdminDashboard() {
       <h2 className="mt-8 text-xs font-semibold uppercase tracking-wide text-gray-400">
         Overview
       </h2>
-      <div className="mt-3 grid grid-cols-2 gap-4 md:grid-cols-3">
+      <div className="mt-3 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
         <Card label="Total Revenue" value={formatNaira(o.total_revenue)} />
         <Card label="Total Paid Orders" value={o.total_paid_orders.toLocaleString()} />
         <Card label="Total Packages Ordered" value={o.total_packages_ordered.toLocaleString()} />
